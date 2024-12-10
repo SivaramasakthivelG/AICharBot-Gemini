@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.utils.`is`
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,6 +12,15 @@ plugins {
 android {
     namespace = "com.example.aichat"
     compileSdk = 35
+
+    val localProperties = Properties()
+    val localPropertiesFile = File(rootDir,"Secret.properties")
+    if(localPropertiesFile.exists() && localPropertiesFile.isFile){
+        localPropertiesFile.inputStream().use {
+            localProperties.load(it)
+        }
+    }
+
 
     defaultConfig {
         applicationId = "com.example.aichat"
@@ -27,6 +39,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String","API_KEY",localProperties.getProperty("API_KEY"))
+        }
+        debug {
+            buildConfigField("String","API_KEY",localProperties.getProperty("API_KEY"))
         }
     }
     compileOptions {
@@ -38,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

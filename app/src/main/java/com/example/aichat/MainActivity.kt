@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.aichat.ui.theme.AIChatTheme
 import com.example.aichat.ui.viewmodel.AIViewModel
+import com.google.ai.client.generativeai.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
